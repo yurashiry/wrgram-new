@@ -33,44 +33,23 @@
             width: 400px;
             max-width: 90%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .auth-container h1, .auth-container h2 {
             text-align: center;
-            margin-bottom: 30px;
-            color: #667eea;
         }
 
-        .auth-tabs {
-            display: flex;
-            gap: 10px;
+        .auth-container h1 {
             margin-bottom: 20px;
+            color: #667eea;
+            font-size: 32px;
         }
 
-        .auth-tab {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: #f0f0f0;
-            cursor: pointer;
-            border-radius: 10px;
-            font-size: 16px;
+        .auth-container h2 {
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 18px;
+            font-weight: normal;
         }
 
-        .auth-tab.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .auth-input, .modal-input {
+        .auth-input {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -79,7 +58,7 @@
             font-size: 14px;
         }
 
-        .auth-btn, .modal-btn {
+        .auth-btn {
             width: 100%;
             padding: 12px;
             background: #667eea;
@@ -91,15 +70,31 @@
             margin-top: 10px;
         }
 
-        .auth-btn.yandex {
-            background: #fc3f1d;
+        .auth-btn.google {
+            background: #4285f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .auth-btn:hover, .modal-btn:hover {
+        .auth-btn.google:before {
+            content: "G";
+            background: white;
+            color: #4285f4;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .auth-btn:hover {
             opacity: 0.9;
         }
 
-        /* Main interface */
         .main-container {
             display: flex;
             width: 100vw;
@@ -130,26 +125,7 @@
         .sidebar-header {
             padding: 20px;
             border-bottom: 1px solid #e0e0e0;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .avatar-small {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #667eea;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+            word-break: break-word;
         }
 
         .chats-list {
@@ -251,8 +227,8 @@
         }
 
         .message-info {
-            font-size: 12px;
-            margin-bottom: 5px;
+            font-size: 11px;
+            margin-bottom: 4px;
             opacity: 0.7;
         }
 
@@ -286,7 +262,6 @@
             cursor: pointer;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -318,26 +293,19 @@
             cursor: pointer;
         }
 
+        .modal-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+        }
+
         .modal-btn.danger {
             background: #dc3545;
-        }
-
-        .users-list, .invites-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .user-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .user-item:hover {
-            background: #f0f0f0;
         }
 
         .small-btn {
@@ -350,65 +318,96 @@
             font-size: 12px;
         }
 
-        .username-small {
-            font-size: 12px;
-            color: #6c757d;
+        .user-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .chat-type-small {
-            font-size: 12px;
-            color: #6c757d;
+        .user-item:hover {
+            background: #f0f0f0;
         }
 
-        .info-btn {
-            margin-left: auto;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .profile-info code {
+            word-break: break-all;
+            font-size: 12px;
         }
 
         hr {
             margin: 15px 0;
         }
+
+        .username-small {
+            font-size: 12px;
+            color: #6c757d;
+        }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <!-- ЭКРАН АВТОРИЗАЦИИ -->
     <div id="auth-screen" class="screen">
         <div class="auth-container">
-            <h1>WR GRAM</h1>
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">Вход</button>
-                <button class="auth-tab" data-tab="register">Регистрация</button>
+            <h1>✨ WR GRAM</h1>
+            <h2>Мессенджер будущего</h2>
+            <div id="g_id_onload"
+                 data-client_id="727787416139-otser0351cpqlfsj96cl8r1j5t65grur.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleLogin"
+                 data-auto_prompt="false">
             </div>
-            
-            <div id="login-form" class="auth-form active">
-                <input type="email" id="login-email" placeholder="Email" class="auth-input">
-                <input type="password" id="login-password" placeholder="Пароль" class="auth-input">
-                <button id="login-btn" class="auth-btn">Войти</button>
-                <button id="yandex-login-btn" class="auth-btn yandex">Войти через Яндекс</button>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left">
             </div>
-            
-            <div id="register-form" class="auth-form">
-                <input type="email" id="reg-email" placeholder="Email" class="auth-input">
-                <input type="password" id="reg-password" placeholder="Пароль" class="auth-input">
-                <button id="register-btn" class="auth-btn">Зарегистрироваться</button>
+            <div style="margin-top: 20px; font-size: 12px; color: #666;">
+                Нажимая кнопку, вы принимаете условия использования
             </div>
         </div>
     </div>
 
-    <!-- ЭКРАН ЗАВЕРШЕНИЯ РЕГИСТРАЦИИ -->
+    <!-- ЭКРАН ЗАВЕРШЕНИЯ РЕГИСТРАЦИИ (для новых пользователей) -->
     <div id="complete-reg-screen" class="screen" style="display: none;">
         <div class="auth-container">
-            <h2>Завершите регистрацию</h2>
+            <h2>Добро пожаловать! 👋</h2>
+            <p>Завершите создание профиля</p>
             <input type="text" id="complete-name" placeholder="Имя" class="auth-input">
             <input type="text" id="complete-lastname" placeholder="Фамилия" class="auth-input">
             <input type="text" id="complete-username" placeholder="Юзернейм (уникальный)" class="auth-input">
             <select id="complete-country" class="auth-input">
-                <option value="">Загрузка стран...</option>
+                <option value="">Выберите страну</option>
+                <option>Россия</option><option>США</option><option>Германия</option><option>Франция</option>
+                <option>Великобритания</option><option>Канада</option><option>Япония</option><option>Китай</option>
+                <option>Индия</option><option>Бразилия</option><option>Австралия</option><option>Италия</option>
+                <option>Испания</option><option>Украина</option><option>Беларусь</option><option>Казахстан</option>
             </select>
-            <button id="complete-btn" class="auth-btn">Готово</button>
+            <button id="complete-btn" class="auth-btn">Начать общение →</button>
         </div>
     </div>
 
@@ -420,23 +419,23 @@
                     <div class="user-info" id="sidebar-user-info">
                         <div class="avatar-small" id="sidebar-avatar">👤</div>
                         <div>
-                            <div id="sidebar-name"></div>
+                            <div id="sidebar-name" style="font-weight: bold;"></div>
                             <div id="sidebar-username" class="username-small"></div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="chats-list" id="chats-list">
-                    <div class="chat-item" data-chat-id="favorites">
+                    <div class="chat-item" data-chat-id="favorites" onclick="openChat('favorites', 'Избранное')">
                         <span class="chat-icon">⭐</span>
                         <span class="chat-name">Избранное</span>
                     </div>
                 </div>
                 
                 <div class="sidebar-bottom">
-                    <button id="new-chat-btn" class="bottom-btn">➕</button>
-                    <button id="notifications-btn" class="bottom-btn">🔔</button>
-                    <button id="profile-btn" class="bottom-btn">⚙️</button>
+                    <button class="bottom-btn" id="new-chat-btn">➕</button>
+                    <button class="bottom-btn" id="notifications-btn">🔔</button>
+                    <button class="bottom-btn" id="profile-btn">⚙️</button>
                 </div>
             </div>
             
@@ -444,10 +443,9 @@
                 <div class="chat-header" id="chat-header">
                     <div class="avatar-small" id="chat-avatar">💬</div>
                     <div>
-                        <div id="chat-name"></div>
-                        <div id="chat-type" class="chat-type-small"></div>
+                        <div id="chat-name">Избранное</div>
                     </div>
-                    <button id="chat-info-btn" class="info-btn">ℹ️</button>
+                    <button id="chat-info-btn" class="small-btn" style="margin-left: auto;">ℹ️</button>
                 </div>
                 
                 <div class="messages-area" id="messages-area">
@@ -463,72 +461,65 @@
     </div>
 
     <!-- МОДАЛЬНЫЕ ОКНА -->
-    <div id="new-chat-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Новый чат</h3>
-            <button id="create-channel-btn" class="modal-btn">📢 Создать канал</button>
-            <button id="create-group-btn" class="modal-btn">👥 Создать группу</button>
-            <button id="new-private-chat-btn" class="modal-btn">💬 Личный чат</button>
-            <hr>
-            <h4>Все пользователи:</h4>
-            <div id="users-list" class="users-list">Загрузка...</div>
-        </div>
-    </div>
-
     <div id="profile-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3>Мой профиль</h3>
+            <h3>👤 Мой профиль</h3>
             <div class="profile-info">
-                <p><strong>ID:</strong> <span id="profile-id"></span> <button id="copy-id-btn" class="small-btn">📋 Копировать</button></p>
+                <strong>Ваш ID:</strong><br>
+                <code id="profile-id"></code>
+                <button id="copy-id-btn" class="small-btn" style="margin-left: 10px;">📋</button>
             </div>
-            <input type="text" id="edit-name" placeholder="Имя" class="modal-input">
-            <input type="text" id="edit-lastname" placeholder="Фамилия" class="modal-input">
-            <input type="text" id="edit-username" placeholder="Юзернейм" class="modal-input">
-            <select id="edit-country" class="modal-input">
-                <option value="">Выберите страну</option>
+            <input type="text" id="edit-name" placeholder="Имя" class="auth-input">
+            <input type="text" id="edit-lastname" placeholder="Фамилия" class="auth-input">
+            <input type="text" id="edit-username" placeholder="Юзернейм" class="auth-input">
+            <select id="edit-country" class="auth-input">
+                <option>Россия</option><option>США</option><option>Германия</option><option>Франция</option>
+                <option>Великобритания</option><option>Канада</option><option>Япония</option>
             </select>
-            <button id="save-profile-btn" class="modal-btn">Сохранить</button>
+            <button id="save-profile-btn" class="auth-btn">💾 Сохранить</button>
             <hr>
-            <button id="delete-account-btn" class="modal-btn danger">🗑️ Удалить аккаунт</button>
-            <button id="logout-btn" class="modal-btn">🚪 Выйти</button>
+            <button id="logout-btn" class="auth-btn">🚪 Выйти</button>
+            <button id="delete-account-btn" class="auth-btn" style="background:#dc3545;">🗑️ Удалить аккаунт</button>
+        </div>
+    </div>
+
+    <div id="new-chat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>➕ Новый чат</h3>
+            <button id="create-group-btn" class="auth-btn">👥 Создать группу</button>
+            <div style="margin: 15px 0; font-weight: bold;">Все пользователи:</div>
+            <div id="users-list" style="max-height: 300px; overflow-y: auto;"></div>
         </div>
     </div>
 
     <div id="notifications-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3>Приглашения</h3>
-            <div id="invites-list" class="invites-list">Загрузка...</div>
+            <h3>🔔 Приглашения</h3>
+            <div id="invites-list" style="max-height: 300px; overflow-y: auto;">Нет приглашений</div>
         </div>
     </div>
 
     <div id="chat-info-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3>Информация о чате</h3>
+            <h3>ℹ️ Информация о чате</h3>
             <div id="chat-info-content"></div>
-            <button id="leave-chat-btn" class="modal-btn danger">Выйти из чата</button>
+            <button id="leave-chat-btn" class="modal-btn danger" style="display: none;">🚪 Выйти из чата</button>
         </div>
     </div>
 
     <script>
-        const API_URL = 'https://functions.yandexcloud.net/d4e5vl94t494a4dim64t';
+        const API_URL = 'https://functions.yandexcloud.net/d4eaokaqcp71i817vsm1';
         let currentUser = null;
-        let currentChat = { id: 'favorites', name: 'Избранное', type: 'personal' };
+        let currentChat = { id: 'favorites', name: 'Избранное' };
         let allUsers = [];
-        let chats = [{ id: 'favorites', name: 'Избранное', type: 'personal' }];
         let refreshInterval = null;
 
         async function apiRequest(endpoint, method, data = null) {
-            const options = {
-                method,
-                headers: { 'Content-Type': 'application/json' }
-            };
-            if (currentUser?.token) {
-                options.headers['Authorization'] = `Bearer ${currentUser.token}`;
-            }
+            const options = { method, headers: { 'Content-Type': 'application/json' } };
             if (data) options.body = JSON.stringify(data);
             const response = await fetch(`${API_URL}${endpoint}`, options);
             const result = await response.json();
@@ -536,80 +527,65 @@
             return result;
         }
 
-        async function register() {
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-            if (!email || !password) { alert('Заполните все поля'); return; }
+        // Google Login Callback
+        window.handleGoogleLogin = async (response) => {
             try {
-                const result = await apiRequest('/api/register', 'POST', { email, password });
-                if (result.userId) {
-                    window.tempUserId = result.userId;
-                    document.getElementById('auth-screen').style.display = 'none';
-                    document.getElementById('complete-reg-screen').style.display = 'flex';
-                    loadCountriesForSelect('complete-country');
+                const result = await apiRequest('/api/google-login', 'POST', { credential: response.credential });
+                
+                if (result.user) {
+                    currentUser = result.user;
+                    localStorage.setItem('wrgram_user', JSON.stringify(currentUser));
+                    
+                    if (!currentUser.name || !currentUser.username) {
+                        document.getElementById('auth-screen').style.display = 'none';
+                        document.getElementById('complete-reg-screen').style.display = 'flex';
+                    } else {
+                        document.getElementById('auth-screen').style.display = 'none';
+                        document.getElementById('main-screen').style.display = 'flex';
+                        initMainScreen();
+                    }
                 }
-            } catch (error) { alert(error.message); }
-        }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Ошибка входа: ' + error.message);
+            }
+        };
 
+        // Завершение регистрации
         async function completeRegistration() {
             const name = document.getElementById('complete-name').value;
             const lastname = document.getElementById('complete-lastname').value;
             const username = document.getElementById('complete-username').value;
             const country = document.getElementById('complete-country').value;
-            if (!name || !lastname || !username || !country) { alert('Заполните все поля'); return; }
+            
+            if (!name || !lastname || !username || !country) {
+                alert('Заполните все поля');
+                return;
+            }
+            
             try {
                 const result = await apiRequest('/api/complete-registration', 'POST', {
-                    userId: window.tempUserId, name, lastname, username, country
+                    userId: currentUser.id,
+                    name, lastname, username, country
                 });
-                currentUser = { ...result.user, token: result.token };
+                currentUser = result.user;
                 localStorage.setItem('wrgram_user', JSON.stringify(currentUser));
                 document.getElementById('complete-reg-screen').style.display = 'none';
                 document.getElementById('main-screen').style.display = 'flex';
                 initMainScreen();
-            } catch (error) { alert(error.message); }
+            } catch(error) { alert(error.message); }
         }
 
-        async function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            try {
-                const result = await apiRequest('/api/login', 'POST', { email, password });
-                currentUser = { ...result.user, token: result.token };
-                localStorage.setItem('wrgram_user', JSON.stringify(currentUser));
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('main-screen').style.display = 'flex';
-                initMainScreen();
-            } catch (error) { alert(error.message); }
-        }
-
-        function yandexLogin() {
-            alert('Настройте Яндекс OAuth в коде (нужен Client ID)');
-        }
-
-        async function loadCountriesForSelect(elementId) {
-            try {
-                const response = await fetch('https://restcountries.com/v3.1/all');
-                const countries = await response.json();
-                const forbidden = ['Iran', 'Israel', 'Иран', 'Израиль'];
-                const select = document.getElementById(elementId);
-                select.innerHTML = '<option value="">Выберите страну</option>';
-                countries.filter(c => !forbidden.includes(c.name.common))
-                    .sort((a,b) => a.name.common.localeCompare(b.name.common))
-                    .forEach(c => {
-                        select.innerHTML += `<option value="${c.name.common}">${c.name.common}</option>`;
-                    });
-            } catch(e) { console.error(e); }
-        }
-
+        // Инициализация главного экрана
         async function initMainScreen() {
             document.getElementById('sidebar-name').innerText = `${currentUser.name || ''} ${currentUser.lastname || ''}`;
             document.getElementById('sidebar-username').innerText = `@${currentUser.username || 'no_username'}`;
-            await loadChats();
             await loadUsers();
-            startMessagePolling();
+            await loadChats();
+            startPolling();
             
             document.getElementById('new-chat-btn').onclick = () => document.getElementById('new-chat-modal').style.display = 'block';
-            document.getElementById('notifications-btn').onclick = () => { loadInvites(); document.getElementById('notifications-modal').style.display = 'block'; };
+            document.getElementById('notifications-btn').onclick = () => document.getElementById('notifications-modal').style.display = 'block';
             document.getElementById('profile-btn').onclick = () => { openProfile(); document.getElementById('profile-modal').style.display = 'block'; };
             document.getElementById('send-btn').onclick = sendMessage;
             document.getElementById('message-input').onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
@@ -620,85 +596,13 @@
             });
             
             document.getElementById('save-profile-btn').onclick = saveProfile;
-            document.getElementById('delete-account-btn').onclick = deleteAccount;
             document.getElementById('logout-btn').onclick = logout;
-            document.getElementById('copy-id-btn').onclick = () => copyToClipboard(currentUser.id);
-            document.getElementById('create-channel-btn').onclick = () => createChat('channel');
-            document.getElementById('create-group-btn').onclick = () => createChat('group');
-            document.getElementById('new-private-chat-btn').onclick = () => document.getElementById('users-list').scrollIntoView();
+            document.getElementById('delete-account-btn').onclick = deleteAccount;
+            document.getElementById('copy-id-btn').onclick = () => navigator.clipboard.writeText(currentUser.id);
+            document.getElementById('create-group-btn').onclick = createGroup;
             
-            loadCountriesForSelect('edit-country');
-            if (currentChat.id === 'favorites') openChat('favorites', 'Избранное', 'personal');
-        }
-
-        async function loadChats() {
-            try {
-                const serverChats = await apiRequest('/api/chats', 'GET');
-                chats = [{ id: 'favorites', name: 'Избранное', type: 'personal' }, ...serverChats];
-                renderChats();
-            } catch (error) { console.error(error); }
-        }
-
-        function renderChats() {
-            const container = document.getElementById('chats-list');
-            container.innerHTML = '';
-            chats.forEach(chat => {
-                const div = document.createElement('div');
-                div.className = `chat-item ${currentChat?.id === chat.id ? 'active' : ''}`;
-                div.innerHTML = `<span class="chat-icon">${chat.type === 'group' ? '👥' : chat.type === 'channel' ? '📢' : '💬'}</span>
-                                 <span class="chat-name">${chat.name || 'Без названия'}</span>`;
-                div.onclick = () => openChat(chat.id, chat.name, chat.type);
-                container.appendChild(div);
-            });
-        }
-
-        async function openChat(chatId, chatName, chatType) {
-            currentChat = { id: chatId, name: chatName, type: chatType };
-            document.getElementById('chat-name').innerText = chatName || 'Чат';
-            document.getElementById('chat-type').innerText = chatType === 'group' ? 'Группа' : chatType === 'channel' ? 'Канал' : 'Личный чат';
-            renderChats();
-            await loadMessages();
-        }
-
-        async function loadMessages() {
-            if (!currentChat.id) return;
-            try {
-                let messages = [];
-                if (currentChat.id === 'favorites') {
-                    messages = JSON.parse(localStorage.getItem('favorites') || '[]');
-                } else {
-                    messages = await apiRequest(`/api/messages/${currentChat.id}`, 'GET');
-                }
-                const container = document.getElementById('messages');
-                container.innerHTML = '';
-                messages.forEach(msg => {
-                    const isOwn = msg.from_user === currentUser.id;
-                    const div = document.createElement('div');
-                    div.className = `message ${isOwn ? 'message-own' : 'message-other'}`;
-                    div.innerHTML = `<div class="message-info">${!isOwn ? (msg.name || 'Unknown') + ' ' + (msg.lastname || '') : ''} ${msg.created_at ? new Date(msg.created_at).toLocaleTimeString() : ''}</div>
-                                     <div class="message-text">${escapeHtml(msg.content)}</div>`;
-                    container.appendChild(div);
-                });
-                container.scrollTop = container.scrollHeight;
-            } catch (error) { console.error(error); }
-        }
-
-        function escapeHtml(text) { return text.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-
-        async function sendMessage() {
-            const text = document.getElementById('message-input').value;
-            if (!text.trim()) return;
-            try {
-                if (currentChat.id === 'favorites') {
-                    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-                    favorites.push({ id: Date.now(), from_user: currentUser.id, content: text, created_at: new Date().toISOString() });
-                    localStorage.setItem('favorites', JSON.stringify(favorites));
-                } else {
-                    await apiRequest('/api/message', 'POST', { chatId: currentChat.id, text: text });
-                }
-                document.getElementById('message-input').value = '';
-                await loadMessages();
-            } catch (error) { alert('Ошибка отправки: ' + error.message); }
+            // Открываем Избранное по умолчанию
+            openChat('favorites', 'Избранное');
         }
 
         async function loadUsers() {
@@ -707,62 +611,150 @@
                 const container = document.getElementById('users-list');
                 container.innerHTML = '';
                 allUsers.forEach(user => {
+                    if (user.id === currentUser?.id) return;
                     const div = document.createElement('div');
                     div.className = 'user-item';
-                    div.innerHTML = `<div><strong>${user.name || ''} ${user.lastname || ''}</strong> ${user.username ? `(@${user.username})` : ''} ${user.is_verified ? ' ✅' : ''}</div>
-                                     <button class="small-btn" onclick="startPrivateChat('${user.id}')">Чат</button>`;
+                    div.innerHTML = `
+                        <span><b>${escapeHtml(user.name || '')} ${escapeHtml(user.lastname || '')}</b> @${escapeHtml(user.username || '')}</span>
+                        <button class="small-btn" onclick="startChat('${user.id}')">💬 Чат</button>
+                    `;
                     container.appendChild(div);
                 });
-            } catch (error) { console.error(error); }
+            } catch(error) { console.error('Error loading users:', error); }
         }
 
-        window.startPrivateChat = async function(userId) {
+        async function loadChats() {
             try {
-                await apiRequest('/api/chat', 'POST', { type: 'personal', name: null, members: [userId] });
+                const chats = await apiRequest('/api/chats', 'POST', { userId: currentUser.id });
+                const container = document.getElementById('chats-list');
+                // Оставляем Избранное и добавляем остальные чаты
+                chats.forEach(chat => {
+                    const div = document.createElement('div');
+                    div.className = 'chat-item';
+                    div.innerHTML = `<span class="chat-icon">${chat.type === 'group' ? '👥' : '💬'}</span><span class="chat-name">${escapeHtml(chat.name || 'Чат')}</span>`;
+                    div.onclick = () => openChat(chat.id, chat.name);
+                    container.appendChild(div);
+                });
+            } catch(error) { console.error('Error loading chats:', error); }
+        }
+
+        window.startChat = async function(userId) {
+            try {
+                const result = await apiRequest('/api/chat', 'POST', { 
+                    userId: currentUser.id, 
+                    type: 'personal', 
+                    members: [userId] 
+                });
                 await loadChats();
                 document.getElementById('new-chat-modal').style.display = 'none';
-            } catch (error) { alert('Ошибка: ' + error.message); }
+                openChat(result.chatId, 'Чат');
+            } catch(error) { alert('Ошибка: ' + error.message); }
         }
 
-        async function createChat(type) {
-            const name = prompt('Введите название ' + (type === 'channel' ? 'канала' : 'группы'));
+        async function createGroup() {
+            const name = prompt('👥 Название группы:');
             if (!name) return;
-            let members = [];
-            if (type === 'group') {
-                const userIds = prompt('Введите ID пользователей через запятую');
-                if (userIds) members = userIds.split(',').map(s => s.trim());
-            }
+            const members = prompt('📱 ID участников через запятую (можно посмотреть в профилях):');
+            const memberIds = members ? members.split(',').map(m => m.trim()).filter(m => m) : [];
             try {
-                await apiRequest('/api/chat', 'POST', { type, name, members });
+                await apiRequest('/api/chat', 'POST', { 
+                    userId: currentUser.id, 
+                    type: 'group', 
+                    name, 
+                    members: memberIds 
+                });
                 await loadChats();
                 document.getElementById('new-chat-modal').style.display = 'none';
-                alert('Чат создан!');
-            } catch (error) { alert('Ошибка: ' + error.message); }
+                alert('✅ Группа создана!');
+            } catch(error) { alert('Ошибка: ' + error.message); }
         }
 
-        async function loadInvites() {
+        async function openChat(chatId, chatName) {
+            currentChat = { id: chatId, name: chatName };
+            document.getElementById('chat-name').innerText = chatName;
+            
+            // Обновляем активный класс
+            document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
+            const items = document.querySelectorAll('.chat-item');
+            for (let item of items) {
+                if (item.innerText.includes(chatName) || (chatId === 'favorites' && item.innerText.includes('Избранное'))) {
+                    item.classList.add('active');
+                }
+            }
+            
+            await loadMessages();
+        }
+
+        async function loadMessages() {
+            if (!currentChat.id) return;
+            
+            if (currentChat.id === 'favorites') {
+                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                renderMessages(favorites);
+                return;
+            }
+            
             try {
-                const invites = await apiRequest('/api/invites', 'GET');
-                const container = document.getElementById('invites-list');
-                container.innerHTML = '';
-                if (invites.length === 0) { container.innerHTML = '<p>Нет приглашений</p>'; return; }
-                invites.forEach(invite => {
-                    const div = document.createElement('div');
-                    div.className = 'user-item';
-                    div.innerHTML = `<div><strong>${invite.name || ''} ${invite.lastname || ''}</strong> пригласил(а) вас в чат</div>
-                                     <div><button class="small-btn" onclick="respondToInvite('${invite.id}', true)">✅</button>
-                                     <button class="small-btn" onclick="respondToInvite('${invite.id}', false)">❌</button></div>`;
-                    container.appendChild(div);
+                const messages = await apiRequest(`/api/messages/${currentChat.id}`, 'GET');
+                renderMessages(messages);
+            } catch(error) { console.error('Error loading messages:', error); }
+        }
+
+        function renderMessages(messages) {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const isOwn = msg.from_user === currentUser.id;
+                const div = document.createElement('div');
+                div.className = `message ${isOwn ? 'message-own' : 'message-other'}`;
+                const sender = !isOwn && msg.name ? `<div class="message-info">${escapeHtml(msg.name)}</div>` : '';
+                div.innerHTML = `${sender}<div class="message-text">${escapeHtml(msg.content || msg.text || '')}</div>`;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) { 
+            if (!text) return '';
+            return text.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        async function sendMessage() {
+            const text = document.getElementById('message-input').value;
+            if (!text.trim()) return;
+            
+            if (currentChat.id === 'favorites') {
+                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                favorites.push({
+                    id: Date.now(),
+                    from_user: currentUser.id,
+                    content: text,
+                    created_at: new Date().toISOString()
                 });
-            } catch (error) { console.error(error); }
-        }
-
-        window.respondToInvite = async function(inviteId, accept) {
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                document.getElementById('message-input').value = '';
+                await loadMessages();
+                return;
+            }
+            
             try {
-                await apiRequest('/api/invite/respond', 'POST', { inviteId, accept });
-                await loadChats();
-                loadInvites();
-            } catch (error) { alert('Ошибка: ' + error.message); }
+                await apiRequest('/api/message', 'POST', {
+                    userId: currentUser.id,
+                    chatId: currentChat.id,
+                    text: text
+                });
+                document.getElementById('message-input').value = '';
+                await loadMessages();
+            } catch(error) {
+                alert('Ошибка отправки: ' + error.message);
+            }
         }
 
         function openProfile() {
@@ -770,7 +762,15 @@
             document.getElementById('edit-name').value = currentUser.name || '';
             document.getElementById('edit-lastname').value = currentUser.lastname || '';
             document.getElementById('edit-username').value = currentUser.username || '';
-            if (currentUser.country) document.getElementById('edit-country').value = currentUser.country;
+            if (currentUser.country) {
+                const select = document.getElementById('edit-country');
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].value === currentUser.country) {
+                        select.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
 
         async function saveProfile() {
@@ -778,24 +778,37 @@
             const lastname = document.getElementById('edit-lastname').value;
             const username = document.getElementById('edit-username').value;
             const country = document.getElementById('edit-country').value;
+            
+            if (!name || !lastname || !username || !country) {
+                alert('Заполните все поля');
+                return;
+            }
+            
             try {
-                await apiRequest('/api/profile', 'PUT', { name, lastname, username, country });
-                currentUser.name = name; currentUser.lastname = lastname; currentUser.username = username; currentUser.country = country;
+                await apiRequest('/api/profile', 'PUT', {
+                    userId: currentUser.id,
+                    name, lastname, username, country
+                });
+                currentUser.name = name;
+                currentUser.lastname = lastname;
+                currentUser.username = username;
+                currentUser.country = country;
                 localStorage.setItem('wrgram_user', JSON.stringify(currentUser));
                 document.getElementById('sidebar-name').innerText = `${name} ${lastname}`;
                 document.getElementById('sidebar-username').innerText = `@${username}`;
-                alert('Профиль обновлён!');
+                alert('✅ Профиль обновлён!');
                 document.getElementById('profile-modal').style.display = 'none';
-            } catch (error) { alert('Ошибка: ' + error.message); }
+            } catch(error) { alert('Ошибка: ' + error.message); }
         }
 
         async function deleteAccount() {
-            if (!confirm('Вы уверены? Аккаунт будет удалён навсегда!')) return;
+            if (!confirm('⚠️ Вы уверены? Аккаунт будет удалён навсегда!')) return;
             try {
-                await apiRequest('/api/delete-account', 'DELETE');
+                await apiRequest('/api/delete-account', 'DELETE', { userId: currentUser.id });
                 localStorage.removeItem('wrgram_user');
+                alert('Аккаунт удалён');
                 location.reload();
-            } catch (error) { alert('Ошибка: ' + error.message); }
+            } catch(error) { alert('Ошибка: ' + error.message); }
         }
 
         function logout() {
@@ -803,61 +816,42 @@
             location.reload();
         }
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            alert('ID скопирован!');
-        }
-
         async function openChatInfo() {
             if (currentChat.id === 'favorites') {
-                alert('Избранное — ваш личный чат для заметок');
+                alert('⭐ Избранное — ваш личный чат для заметок. Сообщения сохраняются только на этом устройстве.');
                 return;
             }
+            document.getElementById('chat-info-content').innerHTML = `
+                <p><strong>Название:</strong> ${escapeHtml(currentChat.name)}</p>
+                <p><strong>ID чата:</strong> <code>${currentChat.id}</code></p>
+                <p><strong>Тип:</strong> ${currentChat.id.startsWith('favorites') ? 'Личный' : 'Обычный'}</p>
+            `;
             document.getElementById('chat-info-modal').style.display = 'block';
-            document.getElementById('chat-info-content').innerHTML = `<p>Чат: ${currentChat.name}</p><p>ID: ${currentChat.id}</p>`;
-            document.getElementById('leave-chat-btn').onclick = leaveChat;
+            document.getElementById('leave-chat-btn').style.display = 'none';
         }
 
-        async function leaveChat() {
-            if (confirm('Выйти из чата?')) {
-                // Здесь можно добавить API для выхода
-                document.getElementById('chat-info-modal').style.display = 'none';
-                await loadChats();
-            }
-        }
-
-        function startMessagePolling() {
+        function startPolling() {
             if (refreshInterval) clearInterval(refreshInterval);
-            refreshInterval = setInterval(() => { if (currentChat && currentChat.id !== 'favorites') loadMessages(); }, 3000);
+            refreshInterval = setInterval(() => {
+                if (currentChat && currentChat.id !== 'favorites') {
+                    loadMessages();
+                }
+            }, 3000);
         }
 
-        // АВТОРИЗАЦИЯ ПРИ ЗАГРУЗКЕ
-        (function() {
-            const saved = localStorage.getItem('wrgram_user');
-            if (saved) {
-                try {
-                    currentUser = JSON.parse(saved);
-                    document.getElementById('auth-screen').style.display = 'none';
-                    document.getElementById('main-screen').style.display = 'flex';
-                    initMainScreen();
-                } catch(e) { console.error(e); }
-            }
-        })();
+        // Проверка сохранённой сессии при загрузке
+        const saved = localStorage.getItem('wrgram_user');
+        if (saved) {
+            try {
+                currentUser = JSON.parse(saved);
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('main-screen').style.display = 'flex';
+                initMainScreen();
+            } catch(e) { console.error(e); }
+        }
 
-        document.getElementById('register-btn').onclick = register;
-        document.getElementById('login-btn').onclick = login;
-        document.getElementById('yandex-login-btn').onclick = yandexLogin;
+        // Назначаем обработчики
         document.getElementById('complete-btn').onclick = completeRegistration;
-        
-        // Переключение табов
-        document.querySelectorAll('.auth-tab').forEach(tab => {
-            tab.onclick = () => {
-                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-                document.getElementById(`${tab.dataset.tab}-form`).classList.add('active');
-            };
-        });
     </script>
 </body>
 </html>
