@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>WR GRAM</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
             background: #fff;
             height: 100vh;
             overflow: hidden;
         }
-
-        /* Экран авторизации */
+        
+        /* АВТОРИЗАЦИЯ */
         .auth-screen {
             width: 100%;
             height: 100%;
@@ -27,7 +23,7 @@
             align-items: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
+        
         .auth-card {
             background: white;
             border-radius: 32px;
@@ -37,7 +33,7 @@
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         }
-
+        
         .auth-card h1 {
             font-size: 44px;
             margin-bottom: 12px;
@@ -45,19 +41,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .auth-card p {
-            color: #666;
-            margin-bottom: 32px;
-        }
-
-        /* Основной интерфейс */
+        
+        /* ОСНОВНОЙ ИНТЕРФЕЙС */
         .main-container {
             display: flex;
             height: 100vh;
         }
-
-        /* Боковая панель */
+        
+        /* БОКОВАЯ ПАНЕЛЬ */
         .sidebar {
             width: 320px;
             background: #f5f5f5;
@@ -65,7 +56,7 @@
             display: flex;
             flex-direction: column;
         }
-
+        
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -85,7 +76,7 @@
                 display: flex !important;
             }
         }
-
+        
         .sidebar-header {
             padding: 20px;
             border-bottom: 1px solid #e5e5e5;
@@ -93,12 +84,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .sidebar-header h2 {
             font-size: 22px;
             font-weight: 600;
         }
-
+        
         .settings-btn {
             width: 44px;
             height: 44px;
@@ -108,14 +99,14 @@
             font-size: 20px;
             cursor: pointer;
         }
-
-        /* Список чатов */
+        
+        /* СПИСОК ЧАТОВ */
         .chats-list {
             flex: 1;
             overflow-y: auto;
             padding: 8px 0;
         }
-
+        
         .chat-item {
             display: flex;
             align-items: center;
@@ -124,15 +115,15 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-
+        
         .chat-item:hover {
             background: #ececec;
         }
-
+        
         .chat-item.active {
             background: #e3f2fd;
         }
-
+        
         .chat-avatar {
             width: 52px;
             height: 52px;
@@ -145,22 +136,18 @@
             color: white;
             flex-shrink: 0;
         }
-
-        .chat-info {
-            flex: 1;
-        }
-
+        
         .chat-name {
             font-weight: 600;
             font-size: 16px;
         }
-
-        /* Нижняя кнопка */
+        
+        /* КНОПКА НОВОГО ЧАТА */
         .sidebar-bottom {
             padding: 16px 20px;
             border-top: 1px solid #e5e5e5;
         }
-
+        
         .fab-btn {
             width: 100%;
             height: 52px;
@@ -176,15 +163,15 @@
             justify-content: center;
             gap: 8px;
         }
-
-        /* Область чата */
+        
+        /* ОБЛАСТЬ ЧАТА */
         .chat-area {
             flex: 1;
             display: flex;
             flex-direction: column;
             background: #fff;
         }
-
+        
         .chat-header {
             padding: 16px 20px;
             border-bottom: 1px solid #e5e5e5;
@@ -192,7 +179,7 @@
             align-items: center;
             gap: 12px;
         }
-
+        
         .mobile-back {
             display: none;
             width: 40px;
@@ -205,7 +192,7 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         .chat-header-avatar {
             width: 48px;
             height: 48px;
@@ -217,52 +204,54 @@
             font-size: 22px;
             color: white;
         }
-
+        
         .chat-header-name {
             font-weight: 600;
             font-size: 18px;
         }
-
+        
+        /* СООБЩЕНИЯ */
         .messages-area {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
         }
-
+        
         .messages {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-
+        
         .message {
             max-width: 70%;
             padding: 10px 16px;
             border-radius: 20px;
             word-wrap: break-word;
         }
-
+        
         .message-own {
             align-self: flex-end;
             background: #667eea;
             color: white;
             border-bottom-right-radius: 4px;
         }
-
+        
         .message-other {
             align-self: flex-start;
             background: #f0f0f0;
             color: #333;
             border-bottom-left-radius: 4px;
         }
-
+        
+        /* ПОЛЕ ВВОДА */
         .message-input-area {
             padding: 16px 20px;
             border-top: 1px solid #e5e5e5;
             display: flex;
             gap: 12px;
         }
-
+        
         .message-input {
             flex: 1;
             padding: 12px 20px;
@@ -271,7 +260,7 @@
             outline: none;
             font-size: 15px;
         }
-
+        
         .send-btn {
             width: 48px;
             height: 48px;
@@ -282,14 +271,14 @@
             font-size: 18px;
             cursor: pointer;
         }
-
+        
         .empty-chat {
             text-align: center;
             color: #aaa;
             margin-top: 40vh;
         }
-
-        /* Модалки */
+        
+        /* МОДАЛКИ */
         .modal {
             display: none;
             position: fixed;
@@ -300,7 +289,7 @@
             height: 100%;
             background: rgba(0,0,0,0.5);
         }
-
+        
         .modal-content {
             background: white;
             margin: 15vh auto;
@@ -310,7 +299,7 @@
             border-radius: 28px;
             position: relative;
         }
-
+        
         .close {
             position: absolute;
             right: 20px;
@@ -318,7 +307,7 @@
             font-size: 28px;
             cursor: pointer;
         }
-
+        
         .modal-input {
             width: 100%;
             padding: 12px 16px;
@@ -326,7 +315,7 @@
             border: 1px solid #e5e5e5;
             border-radius: 12px;
         }
-
+        
         .modal-btn {
             width: 100%;
             padding: 12px;
@@ -337,22 +326,22 @@
             margin-top: 12px;
             cursor: pointer;
         }
-
+        
         .modal-btn.danger {
             background: #dc3545;
         }
-
+        
         .profile-info {
             margin: 16px 0;
             padding: 12px;
             background: #f5f5f5;
             border-radius: 12px;
         }
-
+        
         hr {
             margin: 16px 0;
         }
-
+        
         .user-item {
             padding: 12px;
             border-bottom: 1px solid #e5e5e5;
@@ -360,7 +349,7 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .small-btn {
             padding: 6px 14px;
             background: #667eea;
@@ -373,6 +362,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+    <!-- АВТОРИЗАЦИЯ -->
     <div id="auth-screen" class="auth-screen">
         <div class="auth-card">
             <h1>WR GRAM</h1>
@@ -395,7 +385,8 @@
         </div>
     </div>
 
-    <div id="complete-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+    <!-- ЗАВЕРШЕНИЕ РЕГИСТРАЦИИ -->
+    <div id="complete-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); align-items: center; justify-content: center;">
         <div class="auth-card">
             <h2>✨ Завершите профиль</h2>
             <input type="text" id="complete-name" placeholder="Имя" class="modal-input">
@@ -408,6 +399,7 @@
         </div>
     </div>
 
+    <!-- ОСНОВНОЙ ИНТЕРФЕЙС -->
     <div id="main-screen" style="display: none;">
         <div class="main-container">
             <div class="sidebar" id="sidebar">
@@ -415,7 +407,9 @@
                     <h2>Чаты</h2>
                     <button class="settings-btn" id="settings-btn">⚙️</button>
                 </div>
-                <div class="chats-list" id="chats-list"></div>
+                <div class="chats-list" id="chats-list">
+                    <div style="padding: 20px; text-align: center;">Загрузка...</div>
+                </div>
                 <div class="sidebar-bottom">
                     <button class="fab-btn" id="new-chat-btn">➕ Новый чат</button>
                 </div>
@@ -439,6 +433,7 @@
         </div>
     </div>
 
+    <!-- ПРОФИЛЬ -->
     <div id="profile-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -461,6 +456,7 @@
         </div>
     </div>
 
+    <!-- НОВЫЙ ЧАТ -->
     <div id="new-chat-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -477,17 +473,12 @@
         let currentChat = null;
         let refreshInterval = null;
 
-        function saveUser(user) {
-            localStorage.setItem('wrgram_user', JSON.stringify(user));
-        }
-
+        function saveUser(user) { localStorage.setItem('wrgram_user', JSON.stringify(user)); }
+        
         function loadSavedUser() {
             const saved = localStorage.getItem('wrgram_user');
             if (saved) {
-                try {
-                    currentUser = JSON.parse(saved);
-                    return true;
-                } catch(e) {}
+                try { currentUser = JSON.parse(saved); return true; } catch(e) {}
             }
             return false;
         }
@@ -575,16 +566,11 @@
                     div.className = 'chat-item';
                     div.innerHTML = `
                         <div class="chat-avatar">${chat.type === 'group' ? '👥' : '💬'}</div>
-                        <div class="chat-info">
-                            <div class="chat-name">${escapeHtml(chat.name)}</div>
-                        </div>
+                        <div class="chat-name">${escapeHtml(chat.name)}</div>
                     `;
                     div.onclick = () => openChat(chat.id, chat.name, chat.type);
                     container.appendChild(div);
                 });
-                if (chats.length === 0) {
-                    container.innerHTML = '<div style="padding: 20px; text-align: center; color: #aaa;">Нет чатов</div>';
-                }
             } catch(error) { console.error(error); }
         }
 
@@ -609,13 +595,13 @@
                 const container = document.getElementById('messages');
                 container.innerHTML = '';
                 if (messages.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; color: #aaa; padding: 20px;">Нет сообщений</div>';
+                    container.innerHTML = '<div style="text-align: center; color: #aaa; padding: 20px;">💬 Напишите первое сообщение</div>';
                 }
                 messages.forEach(msg => {
                     const isOwn = msg.from_user === currentUser.id;
                     const div = document.createElement('div');
                     div.className = `message ${isOwn ? 'message-own' : 'message-other'}`;
-                    div.innerHTML = `<div>${escapeHtml(msg.content || msg.text || '')}</div>`;
+                    div.innerHTML = `<div>${escapeHtml(msg.content)}</div>`;
                     container.appendChild(div);
                 });
                 container.scrollTop = container.scrollHeight;
@@ -672,14 +658,13 @@
             location.reload();
         }
 
-        function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+        function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : m === '>' ? '&gt;' : m); }
         
         function startPolling() {
             if (refreshInterval) clearInterval(refreshInterval);
             refreshInterval = setInterval(() => { if (currentChat) loadMessages(); }, 3000);
         }
 
-        // СОХРАНЕНИЕ СЕССИИ
         if (loadSavedUser()) {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-screen').style.display = 'flex';
