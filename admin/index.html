@@ -5,222 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WR GRAM - Админ панель</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f0f2f5;
             min-height: 100vh;
+            padding: 20px;
         }
         .admin-container {
-            background: white;
-            width: 95%;
             max-width: 1400px;
-            margin: 20px auto;
-            border-radius: 20px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         .admin-header {
-            padding: 20px 30px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px 32px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .admin-stats {
+        .admin-header h1 { font-size: 24px; }
+        .stats {
             display: flex;
             gap: 20px;
-            padding: 20px 30px;
+            padding: 24px 32px;
             background: #f8f9fa;
             flex-wrap: wrap;
         }
         .stat-card {
             flex: 1;
-            min-width: 150px;
-            padding: 20px;
+            min-width: 180px;
             background: white;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .stat-card span {
-            font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
-            display: block;
-            margin-top: 10px;
-        }
-        .users-table-container {
-            padding: 20px 30px;
-            overflow-x: auto;
-        }
-        .users-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .users-table th, .users-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .users-table th {
-            background: #f8f9fa;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-        .verified-badge {
-            font-size: 18px;
-        }
+        .stat-card h3 { font-size: 14px; color: #666; margin-bottom: 8px; }
+        .stat-card .number { font-size: 32px; font-weight: bold; color: #667eea; }
+        .table-container { padding: 0 32px 32px 32px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid #e5e5e5; }
+        th { background: #f8f9fa; font-weight: 600; color: #333; }
+        .verified-badge { font-size: 18px; }
         .verified-badge.verified { color: #28a745; }
         .verified-badge.not-verified { color: #dc3545; }
-        .small-btn {
+        .btn-sm {
             padding: 6px 12px;
-            background: #667eea;
-            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 12px;
             margin: 2px;
         }
-        .small-btn:hover { opacity: 0.9; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 5px; font-size: 12px; }
-        .loading { text-align: center; padding: 50px; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .login-box {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .login-box input {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div id="admin-screen">
+    <div id="admin-container" style="display: none;">
         <div class="admin-container">
             <div class="admin-header">
                 <h1>👑 WR GRAM Админ панель</h1>
-                <button id="logout-admin-btn" class="small-btn" style="background: #dc3545;">Выйти</button>
+                <button class="logout-btn" id="logout-btn">Выйти</button>
             </div>
-            <div class="admin-stats">
-                <div class="stat-card">📊 Всего пользователей <span id="total-users">0</span></div>
-                <div class="stat-card">✅ Верифицированных <span id="verified-users">0</span></div>
-                <div class="stat-card">👑 Администраторов <span id="admin-users">0</span></div>
+            <div class="stats">
+                <div class="stat-card"><h3>Всего пользователей</h3><div class="number" id="total-users">0</div></div>
+                <div class="stat-card"><h3>Верифицированных</h3><div class="number" id="verified-users">0</div></div>
+                <div class="stat-card"><h3>Администраторов</h3><div class="number" id="admin-users">0</div></div>
             </div>
-            <div class="users-table-container">
-                <table class="users-table">
+            <div class="table-container">
+                <table>
                     <thead>
                         <tr><th>ID</th><th>Email</th><th>Имя</th><th>Фамилия</th><th>Юзернейм</th><th>Страна</th><th>Галочка</th><th>Админ</th><th>Действия</th></tr>
                     </thead>
-                    <tbody id="admin-users-list"><tr><td colspan="9" class="loading">Загрузка...</td></tr></tbody>
+                    <tbody id="users-list"><tr><td colspan="9" style="text-align: center;">Загрузка...</td></tr></tbody>
                 </table>
             </div>
         </div>
     </div>
+    <div id="login-box" class="login-box">
+        <h2>🔐 Вход в админ-панель</h2>
+        <p style="color: #666; margin-bottom: 20px;">Войдите через Google</p>
+        <div id="g_id_onload"
+             data-client_id="727787416139-otser0351cpqlfsj96cl8r1j5t65grur.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleAdminLogin"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+    </div>
     <script>
-        const API_URL = 'https://functions.yandexcloud.net/d4e5vl94t494a4dim64t';
+        const API_URL = 'https://wrgram.yurashiry.workers.dev';
         let currentAdmin = null;
 
         async function apiRequest(endpoint, method, data = null) {
             const options = { method, headers: { 'Content-Type': 'application/json' } };
-            const token = localStorage.getItem('admin_token');
-            if (token) options.headers['Authorization'] = `Bearer ${token}`;
             if (data) options.body = JSON.stringify(data);
             const response = await fetch(`${API_URL}${endpoint}`, options);
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.error || 'Request failed');
-            return result;
+            return response.json();
         }
 
-        async function checkAdmin() {
-            const token = localStorage.getItem('admin_token');
-            const userStr = localStorage.getItem('admin_user');
-            if (token && userStr) {
-                try {
-                    currentAdmin = JSON.parse(userStr);
-                    if (currentAdmin.is_admin) {
-                        await loadUsersList();
-                        return;
-                    }
-                } catch(e) {}
-            }
-            const email = prompt('Введите email администратора');
-            const password = prompt('Введите пароль');
-            if (email && password) {
-                try {
-                    const result = await apiRequest('/api/login', 'POST', { email, password });
-                    if (result.user.is_admin) {
-                        currentAdmin = result.user;
-                        localStorage.setItem('admin_token', result.token);
-                        localStorage.setItem('admin_user', JSON.stringify(result.user));
-                        await loadUsersList();
-                    } else {
-                        alert('У вас нет прав администратора');
-                        document.body.innerHTML = '<h1 style="text-align:center;margin-top:50px;">⛔ Доступ запрещён</h1>';
-                    }
-                } catch(error) {
-                    alert('Ошибка входа: ' + error.message);
+        window.handleAdminLogin = async (response) => {
+            try {
+                const result = await apiRequest('/api/google-login', 'POST', { credential: response.credential });
+                if (result.user && result.user.is_admin) {
+                    currentAdmin = result.user;
+                    document.getElementById('login-box').style.display = 'none';
+                    document.getElementById('admin-container').style.display = 'block';
+                    loadUsers();
+                } else {
+                    alert('У вас нет прав администратора');
                 }
+            } catch(error) {
+                alert('Ошибка входа: ' + error.message);
             }
-        }
+        };
 
-        async function loadUsersList() {
+        async function loadUsers() {
             try {
                 const users = await apiRequest('/api/admin/users', 'GET');
                 document.getElementById('total-users').innerText = users.length;
                 document.getElementById('verified-users').innerText = users.filter(u => u.is_verified).length;
                 document.getElementById('admin-users').innerText = users.filter(u => u.is_admin).length;
-                const tbody = document.getElementById('admin-users-list');
+                const tbody = document.getElementById('users-list');
                 tbody.innerHTML = '';
                 users.forEach(user => {
                     const row = tbody.insertRow();
                     row.innerHTML = `
-                        <td><code>${user.id.substring(0, 8)}...</code></td>
+                        <td>${user.id.substring(0, 12)}...</td>
                         <td>${user.email || '-'}</td>
                         <td>${user.name || '-'}</td>
                         <td>${user.lastname || '-'}</td>
                         <td>${user.username || '-'}</td>
                         <td>${user.country || '-'}</td>
-                        <td class="verified-badge ${user.is_verified ? 'verified' : 'not-verified'}">${user.is_verified ? '✅ Да' : '❌ Нет'}</td>
-                        <td>${user.is_admin ? '👑 Да' : '❌ Нет'}</td>
+                        <td class="verified-badge ${user.is_verified ? 'verified' : 'not-verified'}">${user.is_verified ? '✅' : '❌'}</td>
+                        <td>${user.is_admin ? '👑' : '❌'}</td>
                         <td>
-                            <button class="small-btn" onclick="toggleVerify('${user.id}', ${!user.is_verified})">
-                                ${user.is_verified ? '🔴 Убрать галочку' : '🟢 Выдать галочку'}
+                            <button class="btn-sm ${user.is_verified ? 'btn-danger' : 'btn-success'}" onclick="toggleVerify('${user.id}', ${!user.is_verified})">
+                                ${user.is_verified ? 'Убрать галочку' : 'Выдать галочку'}
                             </button>
-                            <button class="small-btn" onclick="toggleAdmin('${user.id}', ${!user.is_admin})">
-                                ${user.is_admin ? '👑 Снять админа' : '⭐ Сделать админом'}
+                            <button class="btn-sm btn-primary" onclick="toggleAdmin('${user.id}', ${!user.is_admin})">
+                                ${user.is_admin ? 'Снять админа' : 'Сделать админом'}
                             </button>
                         </td>
                     `;
                 });
-            } catch (error) {
+            } catch(error) {
                 console.error(error);
-                document.getElementById('admin-users-list').innerHTML = `<tr><td colspan="9">Ошибка загрузки: ${error.message}</td></tr>`;
             }
         }
 
         async function toggleVerify(userId, verified) {
-            try {
-                await apiRequest('/api/admin/verify-user', 'POST', { targetUserId: userId, verified });
-                await loadUsersList();
-            } catch (error) { alert('Ошибка: ' + error.message); }
+            await apiRequest('/api/admin/verify-user', 'POST', { targetUserId: userId, verified });
+            loadUsers();
         }
 
         async function toggleAdmin(userId, makeAdmin) {
-            try {
-                await apiRequest('/api/admin/make-admin', 'POST', { targetUserId: userId, makeAdmin });
-                await loadUsersList();
-            } catch (error) { alert('Ошибка: ' + error.message); }
+            await apiRequest('/api/admin/make-admin', 'POST', { targetUserId: userId, makeAdmin });
+            loadUsers();
         }
 
-        function logout() {
-            localStorage.removeItem('admin_token');
-            localStorage.removeItem('admin_user');
-            location.reload();
-        }
-
-        document.getElementById('logout-admin-btn').onclick = logout;
-        checkAdmin();
+        document.getElementById('logout-btn').onclick = () => {
+            currentAdmin = null;
+            document.getElementById('admin-container').style.display = 'none';
+            document.getElementById('login-box').style.display = 'block';
+        };
     </script>
 </body>
 </html>
